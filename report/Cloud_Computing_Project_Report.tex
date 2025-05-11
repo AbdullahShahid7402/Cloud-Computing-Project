@@ -1,0 +1,374 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{float}
+
+% Page margins
+\geometry{
+    a4paper,
+    margin=1in
+}
+
+% Title formatting
+\titleformat{\section}
+{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}
+{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+% Hyperref settings
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+    {\Huge\bfseries Cloud Computing Project Report\par}
+    \vspace{1cm}
+    {\Large Application Deployment on AWS Infrastructure\par}
+    \vspace{1.5cm}
+    {\Large\itshape Group Members\par}
+    \vspace{0.5cm}
+    Abdullah Shahid Butt (21I0721)\\
+    Rizwan Salim (21I0574)
+    \vfill
+    {\large \today\par}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{Project Overview}
+
+\subsection{Project Statement}
+This project involves deploying a cloud-based web application following modern cloud-native architecture principles. The application consists of two separate components:
+\begin{itemize}
+    \item A backend service handling CRUD operations, user authentication, database management, and secure file uploads
+    \item A frontend client consuming the backend via REST APIs
+\end{itemize}
+
+\subsection{Project Requirements}
+
+\subsubsection{Functional Requirements}
+\begin{itemize}
+    \item User Authentication
+    \item CRUD Operations on primary entity (Tasks)
+    \item Database Operations using Amazon RDS (PostgreSQL)
+    \item File and Image Upload Support using AWS S3 Bucket
+\end{itemize}
+
+\subsubsection{AWS Infrastructure Requirements}
+\begin{itemize}
+    \item Frontend deployed on Elastic Beanstalk
+    \item Backend deployed on EC2 using Docker containers
+    \item VPC with proper Security Groups and IAM roles
+    \item Database Layer using Amazon RDS (PostgreSQL)
+    \item File Storage using Amazon S3 with proper bucket policies
+    \item Security implementation with IAM Roles, Policies, and Security Groups
+\end{itemize}
+
+\section{Architecture}
+
+\subsection{Technology Stack}
+\begin{itemize}
+    \item \textbf{Frontend}: React.js with TypeScript
+    \item \textbf{Backend}: Node.js with Express
+    \item \textbf{Database}: PostgreSQL (AWS RDS)
+    \item \textbf{File Storage}: AWS S3
+    \item \textbf{Infrastructure}: AWS (EC2, RDS, S3, Elastic Beanstalk)
+    \item \textbf{Containerization}: Docker
+    \item \textbf{Infrastructure as Code}: Terraform
+\end{itemize}
+
+\subsection{System Components}
+
+\subsubsection{Frontend Application (Elastic Beanstalk)}
+\begin{itemize}
+    \item React.js for UI components
+    \item TypeScript for type safety
+    \item Material-UI for styling
+    \item Axios for API communication
+    \item Environment configuration for AWS services
+\end{itemize}
+
+\subsubsection{Backend Services (EC2 with Docker)}
+\begin{itemize}
+    \item Node.js/Express server
+    \item RESTful API endpoints
+    \item JWT authentication
+    \item File upload handling with S3
+    \item Docker containerization
+\end{itemize}
+
+\subsubsection{Database Layer (RDS)}
+\begin{itemize}
+    \item PostgreSQL on AWS RDS
+    \item Optimized schema design
+    \item Automated backups
+    \item Multi-AZ deployment
+\end{itemize}
+
+\subsubsection{Storage Layer (S3)}
+\begin{itemize}
+    \item AWS S3 for file storage
+    \item Secure file access
+    \item Lifecycle policies
+    \item Bucket policies for access control
+\end{itemize}
+
+\section{Implementation Details}
+
+\subsection{Frontend Implementation}
+\begin{itemize}
+    \item Responsive design using Material-UI
+    \item State management with React hooks
+    \item Form validation and error handling
+    \item Real-time updates for task status
+    \item File upload integration with S3
+    \item Environment configuration for AWS services
+\end{itemize}
+
+\subsection{Backend Implementation}
+\begin{itemize}
+    \item RESTful API design
+    \item JWT-based authentication
+    \item File upload handling with S3
+    \item Database operations with RDS
+    \item Error handling and logging
+    \item Docker containerization
+\end{itemize}
+
+\subsection{Database Schema}
+\begin{itemize}
+    \item Users table
+    \item Tasks table
+    \item Attachments table
+    \item Comments table
+    \item Relationships and constraints
+\end{itemize}
+
+\section{Infrastructure Setup}
+
+\subsection{AWS Services Configuration}
+
+\subsubsection{Elastic Beanstalk (Frontend)}
+\begin{itemize}
+    \item Environment configuration
+    \item Auto-scaling settings
+    \item Environment variables
+    \item HTTPS configuration
+\end{itemize}
+
+\subsubsection{EC2 (Backend)}
+\begin{itemize}
+    \item Instance configuration
+    \item Docker setup
+    \item Security group configuration
+    \item IAM role attachment
+\end{itemize}
+
+\subsubsection{RDS (Database)}
+\begin{itemize}
+    \item PostgreSQL instance setup
+    \item Automated backups
+    \item Multi-AZ deployment
+    \item Security group configuration
+\end{itemize}
+
+\subsubsection{S3 (File Storage)}
+\begin{itemize}
+    \item Bucket creation and configuration
+    \item Versioning enabled
+    \item Lifecycle policies
+    \item Bucket policies for access control
+\end{itemize}
+
+\subsection{Security Implementation}
+
+\subsubsection{IAM Roles and Policies}
+\begin{itemize}
+    \item EC2 instance role
+    \item S3 bucket policies
+    \item RDS access policies
+    \item Least privilege principle implementation
+\end{itemize}
+
+\subsubsection{Security Groups}
+\begin{itemize}
+    \item EC2 security group (ports 22, 80, 443)
+    \item RDS security group (port 5432)
+    \item Elastic Beanstalk security group
+\end{itemize}
+
+\subsubsection{Network Security}
+\begin{itemize}
+    \item VPC configuration
+    \item Subnet setup
+    \item Network ACLs
+    \item Route tables
+\end{itemize}
+
+\section{Deployment Process}
+
+\subsection{Prerequisites}
+\begin{itemize}
+    \item AWS account with appropriate permissions
+    \item Terraform installed
+    \item Docker installed
+    \item Node.js and npm
+    \item AWS CLI configured
+\end{itemize}
+
+\subsection{Deployment Steps}
+\begin{enumerate}
+    \item Infrastructure provisioning using Terraform
+    \item RDS database initialization
+    \item S3 bucket setup
+    \item Backend deployment to EC2
+    \item Frontend deployment to Elastic Beanstalk
+    \item Environment configuration
+    \item Testing and verification
+\end{enumerate}
+
+\section{Security Measures}
+
+\subsection{Implemented Security Features}
+
+\subsubsection{Authentication}
+\begin{itemize}
+    \item JWT-based authentication
+    \item Password hashing
+    \item Session management
+\end{itemize}
+
+\subsubsection{Data Protection}
+\begin{itemize}
+    \item HTTPS encryption
+    \item Database encryption
+    \item S3 encryption
+\end{itemize}
+
+\subsubsection{Access Control}
+\begin{itemize}
+    \item IAM roles and policies
+    \item Security groups
+    \item Network ACLs
+    \item S3 bucket policies
+\end{itemize}
+
+\subsubsection{Monitoring}
+\begin{itemize}
+    \item CloudWatch integration
+    \item Error logging
+    \item Performance monitoring
+\end{itemize}
+
+\section{Challenges and Solutions}
+
+\subsection{Technical Challenges}
+
+\subsubsection{Infrastructure Setup}
+\begin{itemize}
+    \item \textbf{Challenge}: Complex AWS configuration
+    \item \textbf{Solution}: Infrastructure as Code using Terraform
+\end{itemize}
+
+\subsubsection{File Storage}
+\begin{itemize}
+    \item \textbf{Challenge}: Secure file handling
+    \item \textbf{Solution}: S3 integration with proper IAM roles
+\end{itemize}
+
+\subsubsection{Database Management}
+\begin{itemize}
+    \item \textbf{Challenge}: Data consistency
+    \item \textbf{Solution}: Proper schema design and transactions
+\end{itemize}
+
+\subsection{Security Challenges}
+
+\subsubsection{Authentication}
+\begin{itemize}
+    \item \textbf{Challenge}: Secure user authentication
+    \item \textbf{Solution}: JWT implementation with proper validation
+\end{itemize}
+
+\subsubsection{Data Protection}
+\begin{itemize}
+    \item \textbf{Challenge}: Secure data transmission
+    \item \textbf{Solution}: HTTPS and encryption implementation
+\end{itemize}
+
+\section{Future Improvements}
+
+\subsection{Planned Enhancements}
+
+\subsubsection{Scalability}
+\begin{itemize}
+    \item Implement auto-scaling
+    \item Add load balancing
+    \item Optimize database queries
+\end{itemize}
+
+\subsubsection{Features}
+\begin{itemize}
+    \item Real-time notifications
+    \item Task dependencies
+    \item Advanced reporting
+\end{itemize}
+
+\subsubsection{Security}
+\begin{itemize}
+    \item Two-factor authentication
+    \item Enhanced monitoring
+    \item Regular security audits
+\end{itemize}
+
+\subsection{Performance Optimization}
+
+\subsubsection{Frontend}
+\begin{itemize}
+    \item Code splitting
+    \item Lazy loading
+    \item Caching strategies
+\end{itemize}
+
+\subsubsection{Backend}
+\begin{itemize}
+    \item Query optimization
+    \item Caching implementation
+    \item API rate limiting
+\end{itemize}
+
+\section{Conclusion}
+
+The Task Management System successfully implements a cloud-based solution using modern technologies and AWS services. The project demonstrates practical application of cloud computing concepts, security best practices, and scalable architecture design.
+
+\subsection{Key Achievements}
+\begin{itemize}
+    \item Successful implementation of cloud infrastructure
+    \item Secure and scalable application architecture
+    \item Efficient task management features
+    \item Robust file handling system
+\end{itemize}
+
+\subsection{Learning Outcomes}
+\begin{itemize}
+    \item Cloud infrastructure management
+    \item Security implementation
+    \item Full-stack development
+    \item DevOps practices
+\end{itemize}
+
+\end{document} 
