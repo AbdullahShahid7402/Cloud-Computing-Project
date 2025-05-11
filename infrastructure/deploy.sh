@@ -5,6 +5,19 @@ set -e
 
 echo "Starting deployment process..."
 
+# Initialize git if not already initialized
+if [ ! -d .git ]; then
+    echo "Initializing git repository..."
+    git init
+    git add .
+    git commit -m "Initial commit"
+fi
+
+# Create necessary directories if they don't exist
+mkdir -p frontend/src
+mkdir -p backend/src
+mkdir -p infrastructure/terraform/modules
+
 # Build frontend
 echo "Building frontend..."
 cd frontend
@@ -64,10 +77,18 @@ REACT_APP_API_URL=http://${EC2_PUBLIC_IP}:3000
 REACT_APP_S3_BUCKET=${S3_BUCKET}
 EOL
 
-# Deploy backend to EC2
-echo "Deploying backend to EC2..."
-cd ../backend
-scp -i ~/.ssh/${AWS_KEY_NAME}.pem -r ./* ec2-user@${EC2_PUBLIC_IP}:~/app/
+# Create a temporary directory for deployment
+echo "Preparing files for deployment..."
+TEMP_DIR=$(mktemp -d)
+cp -r backend/* ${TEMP_DIR}/
+cp -r frontend/build ${TEMP_DIR}/frontend
+
+# Deploy to EC2
+echo "Deploying to EC2..."
+scp -i ~/.ssh/${AWS_KEY_NAME}.pem -r ${TEMP_DIR}/* ec2-user@${EC2_PUBLIC_IP}:~/app/
+
+# Clean up temporary directory
+rm -rf ${TEMP_DIR}
 
 # SSH into EC2 and start the application
 echo "Starting application on EC2..."
